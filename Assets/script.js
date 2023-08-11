@@ -1,10 +1,12 @@
+//API KEY, City Variable created, and stored search history to local
 var APIKey = "29a5a52a0cc992fa11085a6d5700c81c";
 var city;
 var searchHistory = JSON.parse(localStorage.getItem("History"))
+// Check if searchHistory is null or undefined
 if (!searchHistory) {
   searchHistory = []
 };
-
+//Creation of a button once city search is made
 function appendButtonToHistory(item) {
   var button = document.createElement("button");
   button.textContent = item;
@@ -16,7 +18,7 @@ function appendButtonToHistory(item) {
   document.getElementById("search-history").appendChild(button);
 }
 
-
+//Data Fetch for the selected city
 function fetchWeatherForecast(city) {
   city = document.getElementById("input-box").value;
   // Check if the search input is empty
@@ -27,7 +29,7 @@ function fetchWeatherForecast(city) {
   if (searchHistory.includes(city)) {
     return; // Exit the function if the search input is already in the search history
   }
-
+//API URL
   var queryURL =
     "https://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
@@ -35,7 +37,7 @@ function fetchWeatherForecast(city) {
     APIKey +
     "&units=imperial";
 
-
+//Displaying searched city and saving to local
   searchHistory.push(city);
   console.log(searchHistory);
   storeHistory();
@@ -111,6 +113,7 @@ function storeHistory() {
 
 
 document.getElementById("search-history").innerHTML = "";
+// Iterate through searchHistory and append buttons to search-history element
 searchHistory.forEach(function (item) {
   appendButtonToHistory(item);
 });
